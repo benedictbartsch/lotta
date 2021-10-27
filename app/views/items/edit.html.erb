@@ -1,0 +1,5 @@
+<h1>Editing Item</h1>
+<%= turbo_frame_tag(dom_id(@item)) do %>
+<%= render 'form', item: @item %>
+<% end %>
+<%= link_to 'Show', workspace_item_path(@workspace, @item) %> |

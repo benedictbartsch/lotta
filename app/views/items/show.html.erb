@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @item.content %>
+</p>
+
+<%= link_to 'Edit', edit_workspace_item_path(@workspace, @item) %> |
+<%= link_to 'Back', workspace_items_path(@workspace) %>

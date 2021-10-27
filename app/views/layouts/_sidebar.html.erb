@@ -1,0 +1,32 @@
+<aside class="is-hidden-mobile" style="height: 100%">
+  <section id="sidebar" class="p-3">
+    <h1 class="title">Lotta</h1>
+    <div class="menu">
+      <p class="menu-label">
+        General
+      </p>
+      <ul class="menu-list">
+        <li><%= link_to t('sidebar.all_items'), workspace_items_path(@workspace), class: "#{'is-active' unless params[:tag].present? || params[:filter].present? || params[:project].present? }" %></li>
+        <li><%= link_to t('sidebar.tasks'), workspace_items_path(@workspace, filter: 'tasks'), class: "#{'is-active' if params[:filter] == 'tasks' }" %></li>
+        <li><%= link_to t('sidebar.incomplete'), workspace_items_path(@workspace, filter: 'incomplete'), class: "#{'is-active' if params[:filter] == 'incomplete' }" %></li>
+        <li><%= link_to t('sidebar.completed'), workspace_items_path(@workspace, filter: 'completed'), class: "#{'is-active' if params[:filter] == 'completed' }" %></li>
+      </ul>
+      <p class="menu-label">
+        Projects
+      </p>
+      <ul class="menu-list">
+        <% @workspace.projects.where.not(items_count: 0).all.each do |p| %>
+          <li><%= link_to p.name, workspace_items_path(@workspace, project: p.name), class: "#{'is-active' if p.name.to_s == params[:project]}" %></li>
+        <% end %>
+      </ul>
+      <p class="menu-label">
+        Tags
+      </p>
+      <ul class="menu-list">
+        <% ActsAsTaggableOn::Tag.for_tenant(@workspace.id).each do |t| %>
+          <li><%= link_to "##{t.name}", workspace_items_path(@workspace, tag: t.name), class: "#{'is-active' if t.name.to_s == params[:tag]}" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </section>
+</aside>

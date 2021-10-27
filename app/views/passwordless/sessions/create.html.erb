@@ -1,0 +1,14 @@
+<% provide(:title, t('.sign_in')) %>
+<div class="columns is-centered is-mobile is-vcentered">
+  <div class="column is-two-fifths-desktop is-two-thirds-tablet mx-3">
+    <p class="title has-text-centered"><%= t('shared.title') %></p>
+    <div class="box">
+      <h2 class="title has-text-centered"><%= t('.sign_in') %></h2>
+      <p><%= I18n.t('passwordless.sessions.create.email_sent_if_record_found') %></p>
+      <p class="my-2 has-text-centered"><%= link_to  t('.try_again'), users.sign_in_path %></p>
+    </div>
+    <div class="has-text-centered">
+      <%= link_to  t('.sign_up'), '/users/new' %>
+    </div>
+  </div>
+</div>

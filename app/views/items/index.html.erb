@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<% if Rails.env.development? %>
+  <%= current_user.inspect %><br>
+  <%= @workspace.inspect %>
+<% end %>
+<div class="box has-background-info"><%= turbo_frame_tag("new_item", src: new_workspace_item_path(@workspace)) do %>
+    <%= render 'items/form', item: Item.new %>
+  <% end %>
+</div>
+<ul id="items">
+  <%= render  @items, workspace: @workspace %>
+</ul>
+<% if @pagy.pages > 1 %>
+  <div class="my-3"><%== pagy_bulma_nav(@pagy) %></div>
+<% end %>
+<div class="content has-text-grey m-5">
+  <p>How to use Lotta:</p>
+  <ul>
+    <li>Add new items in the box.
+      <li>You can use @projects and #hashtags by adding # and @ in the notes.</li>
+      <li>Quickly switch between types (like info, notes, tasks) by typing the first letter of the type in the box and hitting space.</li>
+      <li>Notes (n) support Markdown formatting and multiple lines (hit Shift-Enter to add).</li>
+    </ul>
+  <p class="mt-6 is-size-7">A little project from <a href="https://twitter.com/benedictbartsch" target="_blank" class="has-text-grey is-underlined">@benedictbartsch</a>.</p>
+  </div>
+</div>

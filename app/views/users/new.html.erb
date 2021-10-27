@@ -1,0 +1,13 @@
+<% provide(:title, t('.sign_up')) %>
+<div class="columns is-centered is-mobile is-vcentered">
+  <div class="column is-two-fifths-desktop is-two-thirds-tablet mx-3">
+    <div class="my-5"><%= render  "shared/lotta_brand" %></div>
+    <div class="box">
+      <h2 class="title has-text-centered"><%= t('.sign_up') %></h2>
+      <%= render  "form", helper: true %>
+    </div>
+    <div class="has-text-centered">
+      <%= link_to  t('.sign_in'), users.sign_in_path %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+<%= turbo_stream.prepend("items", @item, locals: { workspace: @workspace }) %>
+<%= turbo_stream.replace("sidebar", partial: 'layouts/sidebar', workspace: @workspace) if @item.has_tags? || @item.project_id.present? %>

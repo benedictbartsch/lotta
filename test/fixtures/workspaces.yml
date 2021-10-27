@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+first:
+  user: lotta
+  name: Workspace \#1
+
+second: 
+  user: jane
+  name: Jane's workspace

@@ -1,0 +1,10 @@
+<% if object.errors.any? %> 
+    <div class="notification is-danger">
+    <p class="has-text-weight-bold">
+    <%= t('.model_error', count: object.errors.count, model: object.model_name.human) %>
+    </p>
+    <ul>
+    <% object.errors.full_messages.each do |msg| %>
+        <li><%= msg %>.</li> <% end %>
+    </ul>
+</div> <% end %>

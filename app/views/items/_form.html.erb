@@ -1,0 +1,29 @@
+<%= form_with(model: [@workspace, item], data: { controller: "input-items", action: "turbo:submit-end->input-items#reset" }) do |form| %>
+  <% if item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <ul>
+        <% item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field has-addons m-0">
+    <p class="control">
+      <span class="select" style="height: 100%;">
+        <select id="item_type" name="item[item_type]" data-input-items-target="select" data-action="change->input-items#select" style="height: 100%;">
+          <option value="info" <%= 'selected' if item.info? %>>Info</option>
+          <option value="task" <%= 'selected' if item.task? %>>Task</option>
+          <option value="note" <%= 'selected' if item.note? %>>Note</option>
+        </select>
+      </span>
+    </p>
+    <p class="control is-expanded">
+      <%= form.text_area :content, class: "#{ item.note? ? 'textarea' : 'input' }", autocomplete: "off", autofocus: true, data: { input_items_target: "input", action: "keyup->input-items#change" } %>
+    </p>
+    <p class="control">
+      <%= form.submit (action_name == "edit" ? "Save" : "+"), class: "button is-primary", style: "height: 100%;" %>
+    </p>
+  </div>
+<% end %>
