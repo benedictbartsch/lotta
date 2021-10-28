@@ -2,13 +2,18 @@
 
 name: Verify
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
-
   push:
-    branches: [ develop ]
   pull_request:
-    branches: [ main, develop, test ]
+    branches: [main, develop, test]
+
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Reason for dispatch"
+        required: true
+        default: "Just running some tests"
 
 jobs:
   tests:
