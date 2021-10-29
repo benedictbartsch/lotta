@@ -8,16 +8,19 @@ export default class extends Controller {
     if (this.selectTarget.value != "note") {
       this.inputTarget.addEventListener("keypress", this._preventNewline);
     }
+    this._setTextareaHeight();
   }
 
   reset() {
     this.element.reset();
     this._setNoneNote();
+    this.inputTarget.style.height = "";
   }
 
   change(event) {
     this._handleEnter(event);
     this._setType();
+    this._setTextareaHeight();
   }
 
   select() {
@@ -102,6 +105,12 @@ export default class extends Controller {
     this.inputTarget.classList.add("input");
     this.inputTarget.classList.remove("textarea");
     this.inputTarget.addEventListener("keypress", this._preventNewline);
+  }
+
+  // https://stackoverflow.com/a/48460773
+  _setTextareaHeight() {
+    this.inputTarget.style.height = "";
+    this.inputTarget.style.height = this.inputTarget.scrollHeight + 3 + "px";
   }
 
 
