@@ -40,11 +40,10 @@ gem 'simplecov'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3', '~> 1.4'
   gem 'faker'
+  gem 'i18n-tasks'
+  gem 'sqlite3', '~> 1.4'
 end
 
 group :development do
