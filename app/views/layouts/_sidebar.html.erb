@@ -1,7 +1,7 @@
 <aside class="is-hidden-mobile" style="height: 100%">
-  <section id="sidebar" class="p-3">
-    <h1 class="title">Lotta</h1>
+  <section id="sidebar" class="p-3" style="min-width: 12rem;">
     
+    <div class="my-3"><%= render 'shared/lotta_brand' %></div>
     <div class="menu">
       <p class="menu-label">
         General
@@ -18,7 +18,7 @@
       </p>
       <ul class="menu-list">
         <% @workspace.projects.where.not(items_count: 0).all.each do |p| %>
-          <li><%= link_to p.name, workspace_items_path(@workspace, project: p.name), class: "#{'is-active' if p.name.to_s == params[:project]}" %></li>
+          <li><%= link_to "@#{p.name}", workspace_items_path(@workspace, project: p.name), class: "#{'is-active' if p.name.to_s == params[:project]}" %></li>
         <% end %>
       </ul>
       <p class="menu-label">
