@@ -24,6 +24,10 @@ class ItemsController < ApplicationController
       @items = @items.where(item_type: :task)
     end
 
+    if params[:search]
+      @items = @workspace.items.where('content like ?', "%#{params[:search]}%")
+    end
+
     @pagy, @items = pagy(@items, items: 30)
   end
 

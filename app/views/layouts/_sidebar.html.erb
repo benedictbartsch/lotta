@@ -1,12 +1,14 @@
 <aside class="is-hidden-mobile" style="height: 100%">
   <section id="sidebar" class="p-3">
     <h1 class="title">Lotta</h1>
+    
     <div class="menu">
       <p class="menu-label">
         General
       </p>
       <ul class="menu-list">
-        <li><%= link_to t('sidebar.all_items'), workspace_items_path(@workspace), class: "#{'is-active' unless params[:tag].present? || params[:filter].present? || params[:project].present? }" %></li>
+        <li class="py-2"><%= render 'search' %></li>
+        <li><%= link_to t('sidebar.all_items'), workspace_items_path(@workspace), class: "#{'is-active' unless params[:tag].present? || params[:filter].present? || params[:project].present? || params[:search].present?  }" %></li>
         <li><%= link_to t('sidebar.tasks'), workspace_items_path(@workspace, filter: 'tasks'), class: "#{'is-active' if params[:filter] == 'tasks' }" %></li>
         <li><%= link_to t('sidebar.incomplete'), workspace_items_path(@workspace, filter: 'incomplete'), class: "#{'is-active' if params[:filter] == 'incomplete' }" %></li>
         <li><%= link_to t('sidebar.completed'), workspace_items_path(@workspace, filter: 'completed'), class: "#{'is-active' if params[:filter] == 'completed' }" %></li>

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   scope path: ':workspace_id', as: 'workspace' do
     resources :items
+    get 'search', to: 'items#index', as: :search_items
     root 'items#index', as: :workspace_items
   end
 end
