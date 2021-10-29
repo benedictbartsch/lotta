@@ -1,28 +1,22 @@
 <%= turbo_frame_tag(dom_id(item)) do %>
-<li>
-  <div class="box p-0 my-2 is-flex is-justify-content-space-between ">
-    <div
-      class="py-2 px-1 has-text-grey has-text-centered" style="min-width: 2rem; vertical-align: middle;"
-    >
-    <% if item.task? %>
- 
-    <%= form_with(model: [@workspace, item], data: { controller: "items"}) do |f| %>
-    <input id="confirm" type="checkbox" <%= 'checked' if item.completed? %>  data-action="click->items#submit">
-    <%= f.hidden_field :status, value: item.completed? ? 0 : 1 %>
-
-
-    <% end %>
-    <% else %>
-    <%= item_icon(item) %>
-    <% end %>
-      
-  </div>
-    <div class="p-2 is-flex-grow-2 content <%= item.note? ? 'my-1' : 'mb-0' %>" style="<%= 'text-decoration: line-through;' if strikethrough?(item) %>"><%= format_content(item) %></div>
-    <p class="has-text-grey py-2 px-1">
-      <small><%= local_time_ago item.created_at %></small>
-    </p>
-    <%= link_to  "✏️", edit_workspace_item_path(@workspace, item), class: "button is-outlined" %>
-    <%= button_to  "X", workspace_item_path(@workspace, item), method: :delete, class: "button is-danger is-outlined"  %>
-  </div>
-</li>
+  <li>
+    <div class="box p-0 my-2 is-flex is-justify-content-space-between">
+      <div class="py-2 px-1 has-text-grey has-text-centered" style="min-width: 2rem; vertical-align: middle;">
+        <% if item.task? %>
+          <%= form_with(model: [@workspace, item], data: { controller: "items"}) do |f| %>
+            <input id="confirm" type="checkbox" <%= 'checked' if item.completed? %>  data-action="click->items#submit">
+            <%= f.hidden_field :status, value: item.completed? ? 0 : 1 %>
+          <% end %>
+        <% else %>
+          <%= item_icon(item) %>
+        <% end %>
+      </div>
+      <div class="p-2 is-flex-grow-2 content <%= item.note? ? 'my-1' : 'mb-0' %>" style="<%= 'text-decoration: line-through;' if strikethrough?(item) %>"><%= format_content(item) %></div>
+      <p class="has-text-grey py-2 px-1">
+        <small><%= local_time_ago item.created_at %></small>
+      </p>
+      <%= link_to  "✏️", edit_workspace_item_path(@workspace, item), class: "button is-outlined" %>
+      <%= button_to  "X", workspace_item_path(@workspace, item), method: :delete, class: "button is-danger is-outlined"  %>
+    </div>
+  </li>
 <% end %>

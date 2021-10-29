@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   validates :content, presence: true
 
   def completed?
-    status == 1
+    status == 1 && item_type == 'task'
   end
 
   def extract_tag_names
