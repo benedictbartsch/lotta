@@ -1,0 +1,9 @@
+<%= form_with(model: [current_user, workspace]) do |f| %> 
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field is-grouped">
+    <p class="control is-expanded"><%= f.text_field :name, class: 'input' %></p>
+    <p class="control">
+      <%= f.submit workspace.persisted? ? t('groups.edit.update') : t('workspaces.new.create'), class: 'button is-link is-light' %>
+    </p>
+  </div>
+  <% end %>

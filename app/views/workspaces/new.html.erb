@@ -1,2 +1,23 @@
-<h1>Workspaces#new</h1>
-<p>Find me in app/views/workspaces/new.html.erb</p>
+
+<div class="mb-3 mx-auto">
+    <%= link_to root_path do %>
+    <%= render 'shared/lotta_brand' %>
+    <% end %>
+</div>
+<div class="box my-5 mx-auto" style="max-width: 36rem;">
+    <%= turbo_frame_tag(dom_id(@workspace)) do %>
+    <div class="">
+        <p class="subtitle is-5"><%= t('workspaces.new.title') %></p>
+        <%= render 'form', workspace: @workspace %>
+    </div>
+    <% end %>
+    <%= link_to account_path do %>
+    <button class="button is-fullwidth mt-6">
+        <span class="icon">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span>Back</span>
+      </button>
+    <% end %>
+
+</div>

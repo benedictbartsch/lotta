@@ -1,34 +1,66 @@
 ---
 en:
+  account:
+    your_account: Your account
+  groups:
+    edit:
+      title: Edit
+      update: Update
+  items:
+    _form:
+      placeholder: Just start typing...
+    index:
+      sorting:
+        created_at_asc: Oldest
+        created_at_desc: Newest
+        due_at_asc: Due date
+        updated_at_desc: Recently updated
   passwordless:
     mailer:
-      magic_link: Magic link
+      magic_link: 'Here''s your link: %{link}'
+      subject: Your magic link ✨
     sessions:
       create:
-        email_sent_if_record_found: Email sent if record found
+        email_sent_if_record_found: If we found you in the system, we've sent you
+          an email.
+        session_expired: Your session has expired, please sign in again.
         sign_in: Sign in
         sign_up: Sign up
+        token_claimed: This link has already been used, try requesting the link again
         try_again: Try again
       new:
         email: Email
         log_in: Log in
         sign_in: Sign in
         sign_up: Sign up
-        submit: Submit
+        submit: Send magic link
   sessions:
     not_signed_in: Not signed in
   shared:
+    back: Back
+    cancel: Cancel
+    created_ago: Created %{time_ago}
+    edit: Edit
     error_messages:
       model_error: Model error
     title: Lotta
   sidebar:
+    account: Account
+    agenda: Agenda
     all_items: All items
     completed: Completed
+    feedback: Give feedback
     incomplete: Incomplete
     tasks: Tasks
+    your_workspaces: Your Workspaces
   users:
     new:
       sign_in: Sign in
-      sign_up: Sign up
+      sign_up: Get started for free
+      submit: Sign up
     shared:
       email_placeholder: jane@example.com
+  workspaces:
+    new:
+      create: Create workspace
+      title: New workspace

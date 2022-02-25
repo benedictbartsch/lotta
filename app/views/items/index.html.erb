@@ -1,26 +1,44 @@
-<p id="notice"><%= notice %></p>
-<% if Rails.env.development? %>
-  <%= current_user.inspect %><br>
-  <%= @workspace.inspect %>
+<% if notice %>
+  <p id="notice" class="notification is-link"><%= notice %></p>
 <% end %>
-<div class="box has-background-info"><%= turbo_frame_tag("new_item", src: new_workspace_item_path(@workspace)) do %>
-    <%= render 'items/form', item: Item.new %>
+<% @group_id = @group ? @group.id : nil %>
+<div class="py-4"><%= turbo_frame_tag("new_item", src: new_workspace_item_path(@workspace, group_id: @group_id)) do %>
+    <%= render 'items/form', item: @workspace.items.build %>
   <% end %>
 </div>
-<ul id="items">
-  <%= render  @items, workspace: @workspace %>
+<%= render @group if @group %>
+<%= render @project if @project %>
+<% unless @items.empty? %>
+  <div class="is-flex is-justify-content-flex-end mt-2" data-controller="toggle">
+    <div class="dropdown is-right" data-toggle-name="sorting-dropdown">
+      <div class="dropdown-trigger">
+        <a class="has-text-grey" aria-haspopup="true" aria-controls="dropdown-menu" data-toggle-target="sorting-dropdown" data-action="click->toggle#active">
+          <span><%= t(current_sorting_string) %></span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </a>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <%= sorting_link_helper(@workspace, "created_at_desc") %>
+          <%= sorting_link_helper(@workspace, "created_at_asc") %>
+          <%= sorting_link_helper(@workspace, "updated_at_desc") %>
+          <%= sorting_link_helper(@workspace, "due_at_asc") if params[:filter] == "due" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<ul id="items" data-controller="items">
+  <%= render  @items, workspace: @workspace, group: @group %>
 </ul>
 <% if @pagy.pages > 1 %>
   <div class="my-3"><%== pagy_bulma_nav(@pagy) %></div>
 <% end %>
-<div class="content has-text-grey m-5">
-  <p>How to use Lotta:</p>
-  <ul>
-    <li>Add new items in the box.
-      <li>You can use @projects and #hashtags by adding # and @ in the notes.</li>
-      <li>Quickly switch between types (like info, notes, tasks) by typing the first letter of the type in the box and hitting space.</li>
-      <li>Notes (n) support Markdown formatting and multiple lines (hit Shift-Enter to add).</li>
-    </ul>
-  <p class="mt-6 is-size-7">A little project from <a href="https://twitter.com/benedictbartsch" target="_blank" class="has-text-grey is-underlined">@benedictbartsch</a>.</p>
-  </div>
+<%= render 'shared/tutorial/lotta_explanation' if @items.empty? && params[:filter].blank? %>
+<% if Rails.env.development? %>
+  <%= current_user.inspect %><br>
+  <%= @workspace.inspect %>
+<% end %>
 </div>

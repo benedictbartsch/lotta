@@ -1,12 +1,27 @@
 <nav class="navbar has-background-white-ter" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <%= link_to root_path, class: 'navbar-item' do %>
-      <figure class="image is-48x48"><%= image_tag 'icon', style: "max-height: 4rem;" %></figure>
-      <span class="mx-3 title">Lotta</span>
+      <figure class="image">
+        <img style="max-width: 8rem; max-height: 3rem;" src="/lotta_workmark_dark.svg">
+      </figure>
     <% end %>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.getElementById('navMenu').classList.toggle('is-active');">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
   <div class="navbar-menu" id="navMenu">
     <div class="navbar-start">
+      <a class="navbar-item" href="#features">
+        Features
+      </a>
+      <a class="navbar-item" href="#pricing">
+        Pricing
+      </a>
+      <a class="navbar-item" href="#open-source">
+        Open Source
+      </a>
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
@@ -18,19 +33,101 @@
     </div>
   </div>
 </nav>
-<section class="">
-  <div class="p-4">
-    <div class="columns is-vcentered is-centered ">
-      <div class="column is-two-thirds">
-        <h1 class="title is-1 has-text-centered my-6">Capture your thoughts as they happen</h1>
-        <p class="subtitle has-text-centered">Write an endless stream of notes and tasks and organize them with projects and tags.</p>
-        <div class="my-6" style="max-width: 30rem; margin: auto;">
+<section class="my-6">
+  <div class="container is-max-widescreen">
+    <div class="columns is-vcentered is-centered is-desktop">
+      <div class="column is-half-desktop m-3">
+        <div class="" style="max-width: 40rem; margin: auto;">
+          <h1 class="title is-1 has-text-centered my-6">Capture your thoughts</h1>
+          <p class="subtitle has-text-centered">Write an endless stream of notes and tasks and organize them with projects and tags.</p>
+        </div>
+        <div class="my-6 box" style="max-width: 40rem; margin: auto;">
           <%= render  "users/form", tracking: true %>
           <p class="has-text-centered my-3"><%= link_to  "Already have an account? Log in", users.sign_in_path %></p>
+        </div>
+      </div>
+      <div class="column is-half-desktop">
+        <figure class="image">
+          <img src="https://static.startpunkt.io/lotta/lotta_screenshot.png" alt="Lotta.cloud screenshot">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hero is-primary" id="features">
+  <div class="hero-body py-6">
+    <div class="container is-max-widescreen">
+      <div class="has-text-centered">
+        <p class="title">
+          Features
+        </p>
+        <p class="subtitle">
+          Tasks and notes combined like never before.
+        </p>
+      </div>
+      <div class="columns is-multiline mt-6 is-variable is-5 is-centered">
+        <%= render 'home_feature', fa_icon: "fas fa-tags", title: "Tags", description: "Organize your items with tags to provide context to all the things." %>
+        <%= render 'home_feature', fa_icon: "fas fa-clipboard-check", title: "Projects", description: "Use easy, inline projects for giving each item a home." %>
+        <%= render 'home_feature', fa_icon: "fab fa-markdown", title: "Markdown", description: "Notes come with full markdown support for easy, inline formatting." %>
+        <%= render 'home_feature', fa_icon: "fas fa-calendar-check", title: "Due dates", description: "Add due dates to keep track of deadlines and plan ahead." %>
+        <%= render 'home_feature', fa_icon: "fas fa-folder", title: "Workspaces", description: "Working on completely different things? Keep them separate in multiple workspaces." %>
+        <%= render 'home_feature', fa_icon: "fas fa-search", title: "Search", description: "Well, it's search. Easier than reading through all the items." %>
+        <%= render 'home_feature', fa_icon: "fas fa-list-ul", title: "Lists", description: "When you need to create a short little list that doesn't need its own tag or be a project." %>
+        <%= render 'home_feature', fa_icon: "fab fa-osi", title: "Open source", description: "Lotta is open source. You can host it yourself, or use Lotta.Cloud for easy access." %>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hero is-link" id="pricing">
+  <div class="hero-body py-6">
+    <div class="container is-max-widescreen">
+      <div class="has-text-centered has-text-light">
+        <p class="title has-text-white">
+          <span class="icon-text"><span class="icon"><i class="fas fa-money-bill"></i></span><span class="ml-2">Pricing</span></span>
+        </p>
+        <p class="subtitle has-text-light">
+          Free to host yourself. A small fee for the cloud.
+        </p>
+      </div>
+      <div class="columns is-centered is-vcentered p-5 mt-4">
+        <div class="column box has-text-centered" style="max-width: 20rem;">
+          <p>Lotta.Cloud is currently in Beta and free to use.</p>
+          <p>A paid plan will launch some time in early 2022.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hero has-text-light has-background-sidebar" id="open-source">
+  <div class="hero-body py-6">
+    <div class="container is-max-widescreen">
+      <div class="has-text-centered has-text-light">
+        <p class="title has-text-white">
+          <span class="icon-text"><span class="icon"><i class="fab fa-osi"></i></span><span class="ml-2">Open Source</span></span>
+        </p>
+        <p class="subtitle has-text-light">
+          Lotta is fully open source under the MIT license.
+        </p>
+      </div>
+      <div class="columns is-centered is-vcentered p-5 mt-4">
+        <div class="column has-text-centered">
+          <a href="https://github.com/benedictbartsch/lotta" target="_blank" class="button">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            <span>Check Lotta out on Github</span>
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
 <footer class="p-3">
+  <div class="is-flex is-flex-direction-row is-justify-content-center has-text-grey m-3">
+    <p class="mx-3">A little project from <a href="https://twitter.com/benedictbartsch" target="_blank" class="has-text-grey is-underlined">@benedictbartsch</a>.</p>
+  </div>
+  <div class="is-flex is-flex-direction-row is-justify-content-center has-text-grey m-3">
+    <p class="mx-3"><a href="https://startpunkt.io/imprint/" target="_blank" rel="noopener noreferrer" class="has-text-grey">Imprint</a></a></p>
+  <p class="mx-3"><a href="https://startpunkt.io/privacy/" target="_blank" rel="noopener noreferrer" class="has-text-grey">Privacy</a></a></p>
+</div>
 </footer>

@@ -1,34 +1,108 @@
-<aside class="is-hidden-mobile" style="height: 100%">
-  <section id="sidebar" class="p-3" style="min-width: 12rem;">
-    
-    <div class="my-3"><%= render 'shared/lotta_brand' %></div>
-    <div class="menu">
-      <p class="menu-label">
-        General
-      </p>
-      <ul class="menu-list">
-        <li class="py-2"><%= render 'search' %></li>
-        <li><%= link_to t('sidebar.all_items'), workspace_items_path(@workspace), class: "#{'is-active' unless params[:tag].present? || params[:filter].present? || params[:project].present? || params[:search].present?  }" %></li>
-        <li><%= link_to t('sidebar.tasks'), workspace_items_path(@workspace, filter: 'tasks'), class: "#{'is-active' if params[:filter] == 'tasks' }" %></li>
-        <li><%= link_to t('sidebar.incomplete'), workspace_items_path(@workspace, filter: 'incomplete'), class: "#{'is-active' if params[:filter] == 'incomplete' }" %></li>
-        <li><%= link_to t('sidebar.completed'), workspace_items_path(@workspace, filter: 'completed'), class: "#{'is-active' if params[:filter] == 'completed' }" %></li>
-      </ul>
-      <p class="menu-label">
-        Projects
-      </p>
-      <ul class="menu-list">
-        <% @workspace.projects.where.not(items_count: 0).all.each do |p| %>
-          <li><%= link_to "@#{p.name}", workspace_items_path(@workspace, project: p.name), class: "#{'is-active' if p.name.to_s == params[:project]}" %></li>
-        <% end %>
-      </ul>
-      <p class="menu-label">
-        Tags
-      </p>
-      <ul class="menu-list">
-        <% ActsAsTaggableOn::Tag.for_tenant(@workspace.id).each do |t| %>
-          <li><%= link_to "##{t.name}", workspace_items_path(@workspace, tag: t.name), class: "#{'is-active' if t.name.to_s == params[:tag]}" %></li>
-        <% end %>
-      </ul>
-    </div>
-  </section>
-</aside>
+<div class="column is-narrow p-0 is-hidden-mobile" id="sidebar">
+  <aside class="has-background-sidebar" style="height: 100%" data-controller="toggle">
+    <section id="sidebar" class="p-3" style="min-width: 12rem;">
+      <div class="mb-3 is-flex is-justify-content-space-between">
+        <%= render 'shared/lotta_brand', text: 'light' %>
+        <div class="button is-outlined has-background-sidebar has-text-white is-fullwidth mt-3 is-hidden-tablet" style="width: 12rem;" onclick="document.getElementById('sidebar').classList.add('is-hidden-mobile');">
+          <span class="icon is-small">
+            <i class="fas fa-bars"></i>
+          </span>
+          <span>Hide Sidebar</span>
+        </div>
+      </div>
+      <div class="dropdown my-3" data-toggle-name="sidebar-dropdown">
+        <div class="dropdown-trigger" style="width: 12rem;">
+          <button class="button is-outlined has-background-sidebar has-text-white is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu" data-action="click->toggle#active" data-toggle-target="sidebar-dropdown">
+            <span><%= @workspace.name.truncate(20) %></span>
+            <span class="icon is-small">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <div class="has-text-grey-light py-1 px-4 is-size-7"><%= t('sidebar.your_workspaces') %></div>
+            <% current_user.workspaces.each do |w| %>
+              <%= link_to  w.name, workspace_items_path(w), class: "dropdown-item #{'is-active' if w == @workspace }", disabled: w == @workspace %>
+            <% end %>
+            <hr class="dropdown-divider">
+            <%= link_to account_path, class: "dropdown-item" do %>
+              <span class="icon-text">
+                <span class="icon"><%= icon('fas', 'user-cog') %></span>
+                <span><%= t('sidebar.account') %></span>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="menu">
+        <p class="menu-label mb-1 mt-3">
+          General
+        </p>
+        <ul class="menu-list">
+          <li class="py-2"><%= render 'shared/search' %></li>
+          <li>
+            <%= link_to workspace_items_path(@workspace), class: "#{'is-active' unless params[:tag].present? || params[:filter].present? || params[:project].present? || params[:search].present?  }" do %>
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-th-large"></i>
+                </span>
+                <span><%= t('sidebar.all_items') %></span>
+              </span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to workspace_items_path(@workspace, filter: 'due', sorting: 'due_at_asc'), class: "#{'is-active' if params[:filter] == 'due' }" do %>
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-calendar"></i>
+                </span>
+                <span><%= t('sidebar.agenda') %></span>
+              </span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to workspace_items_path(@workspace, filter: 'tasks'), class: "#{'is-active' if params[:filter] == 'tasks' }" do %>
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="far fa-check-square"></i>
+                </span>
+                <span><%= t('sidebar.tasks') %></span>
+              </span>
+            <% end %>
+            <% if params[:filter] == 'tasks' || params[:filter] == 'completed' %>
+              <ul>
+                <li>
+                  <%= link_to workspace_items_path(@workspace, filter: 'completed'), class: "#{'is-active' if params[:filter] == 'completed' }" do %>
+                    <span class="icon-text">
+                      <span class="icon">
+                        <i class="fas fa-check"></i>
+                      </span>
+                      <span><%= t('sidebar.completed') %></span>
+                    </span>
+                  <% end %>
+                </li>
+              </ul>
+            <% end %>
+          </li>
+        </ul>
+        <p class="menu-label mb-2 mt-4">
+          Projects
+        </p>
+        <ul class="menu-list">
+          <% @workspace.projects.where.not(items_count: 0).order(:name).each do |p| %>
+            <li><%= link_to "@#{p.name}", workspace_items_path(@workspace, project: p.name), class: "#{'is-active' if p.name.to_s == params[:project]}" %></li>
+          <% end %>
+        </ul>
+        <p class="menu-label mb-2 mt-4">
+          Tags
+        </p>
+        <ul class="menu-list">
+          <% ActsAsTaggableOn::Tag.for_tenant(@workspace.id).order(:name).each do |t| %>
+            <li><%= link_to "##{t.name}", workspace_items_path(@workspace, tag: t.name), class: "#{'is-active' if t.name.to_s == params[:tag]}" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </section>
+  </aside>
+</div>

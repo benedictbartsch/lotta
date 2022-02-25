@@ -14,10 +14,11 @@ class I18nTest < ActiveSupport::TestCase
                  "Missing #{@missing_keys.leaves.count} i18n keys, run `i18n-tasks missing' to show them"
   end
 
-  def test_no_unused_keys
-    assert_empty @unused_keys,
-                 "#{@unused_keys.leaves.count} unused i18n keys, run `i18n-tasks unused' to show them"
-  end
+  # disable unused key test for gems
+  # def test_no_unused_keys
+  #   assert_empty @unused_keys,
+  #                "#{@unused_keys.leaves.count} unused i18n keys, run `i18n-tasks unused' to show them"
+  # end
 
   def test_files_are_normalized
     non_normalized = @i18n.non_normalized_paths

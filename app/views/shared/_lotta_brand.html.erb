@@ -1,6 +1,10 @@
+<% text ||= 'dark'%>
 <div class="is-flex is-flex-direction-row is-align-content-center is-justify-content-center">
-  <figure class="image is-48x48">
-    <img style="max-height: 4rem;" src="https://static.startpunkt.io/lotta/lotta_app_icon.png">
+  <figure class="image">
+    <% if text == 'dark' %>
+      <img style="max-width: 8rem;" src="/lotta_workmark_dark.svg">
+    <% else %>
+      <img style="max-width: 8rem;" src="/lotta_workmark_light.svg">
+    <% end %>
   </figure>
-  <span class="title my-0 mx-2 is-size-2"><%= t('shared.title') %></span>
 </div>

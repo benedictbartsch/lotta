@@ -1,15 +1,18 @@
-
 <% provide(:title, t('.sign_in')) %>
 <div class="columns is-centered is-mobile is-vcentered">
   <div class="column is-two-fifths-desktop is-two-thirds-tablet mx-3">
-    <div class="my-5"><%= render  "shared/lotta_brand" %></div>
+    <div class="my-5">
+      <%= link_to root_path do %>
+        <%= render  "shared/lotta_brand" %>
+      <% end %>
+    </div>
     <div class="box">
       <h2 class="title has-text-centered"><%= t('.log_in') %></h2>
       <%= form_for @session, url: send(Passwordless.mounted_as).sign_in_path, data: {turbo: false} do |f| %>
         <% email_field_name = :"passwordless[#{@email_field}]" %>
         <div class="field">
           <%= f.label :email, t('passwordless.sessions.new.email'), class: 'label' %>
-          <%= text_field_tag email_field_name, params.fetch(email_field_name, nil), autofocus: true, placeholder: t('users.shared.email_placeholder'), class: "input" %>
+          <%= text_field_tag email_field_name, params.fetch(email_field_name, nil), autofocus: true, autocomplete: "email", placeholder: t('users.shared.email_placeholder'), class: "input" %>
           <p class="help">You'll receive a link to log back in.</p>
         </div>
         <div class="control"><%= f.submit I18n.t('passwordless.sessions.new.submit'), class: 'button is-primary is-fullwidth' %></div>

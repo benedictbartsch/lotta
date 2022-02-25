@@ -1,8 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- HTML Meta Tags -->
     <title>Lotta</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Lotta is a tool to capture your thoughts as they happen.">
+    
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://lotta.cloud/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lotta">
+    <meta property="og:description" content="Lotta is a tool to capture your thoughts as they happen.">
+    <meta property="og:image" content="https://static.startpunkt.io/lotta/lotta-og-image.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="lotta.cloud">
+    <meta property="twitter:url" content="https://lotta.cloud/">
+    <meta name="twitter:title" content="Lotta">
+    <meta name="twitter:description" content="Lotta is a tool to capture your thoughts as they happen.">
+    <meta name="twitter:image" content="https://static.startpunkt.io/lotta/lotta-og-image.png">
+    <meta name="twitter:creator" content="@benedictbartsch">
+      
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -11,22 +29,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <!-- Matomo -->
-    <script>
-      var _paq = window._paq = window._paq || [];
-      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(["disableCookies"]);
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="https://matomo.startpunkt.io/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '11']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    <!-- End Matomo Code -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+
   </head>
   <body class="has-background-white-ter">
     <div class="has-background-white-ter">

@@ -1,29 +1,101 @@
-<%= form_with(model: [@workspace, item], data: { controller: "input-items", action: "turbo:submit-end->input-items#reset" }) do |form| %>
-  <% if item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<% edit = item.persisted? %>
+<div class="<%= 'p-2' if edit %>" data-controller="input-items" data-input-items-edit-value="<%= edit ? true : false %>">
+  <%= form_with(model: [@workspace, item], data: { input_items_target: 'iform', action: "turbo:submit-end->input-items#reset" }) do |form| %>
+    <% if item.errors.any? %>
+      <div id="error_explanation" class="notification is-danger">
+        <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+        <ul>
+          <% item.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= form.hidden_field :group_id, value: @group.id if @group %>
+      <p class="control mb-2 <%= 'new-item' unless edit %>">
+        <%= form.text_area :content, class: "#{ item.note? ? 'textarea' : 'input' } #{ 'main-input' unless edit }" ,  autocomplete: "off", id: (item.persisted? || !@group.nil?) ? "edit_area" : "input_area", placeholder: t('items._form.placeholder'), autofocus: true, data: { input_items_target: "input", action: "keyup->input-items#change" } %>
+      </p>
+      <div class="is-flex is-justify-content-space-between">
+        <div class="item-controls is-flex is-flex-wrap-wrap">
+          <div class="field has-addons <%= 'mb-0' if edit %>">
+            <p class="control">
+              <button class="button is-outlined" type="button" data-action="click->input-items#setBullet" title="Bullet" data-input-items-target="bulletbutton">
+                <span>•</span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setTask" title="Task" data-input-items-target="taskbutton">
+                <span class="icon is-small">
+                  <i class="far fa-check-square"></i>
+                </span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setNote" title="Note" data-input-items-target="notebutton">
+                <span class="icon is-small">
+                  <i class="fas fa-sticky-note"></i>
+                </span>
+              </button>
+            </p>
+            <% unless item.persisted? || !@group.nil? %>
+              <p class="control">
+                <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setList" title="List" data-input-items-target="listbutton" <%= 'disabled' if item.persisted? || !@group.nil? %>>
+                  <span class="icon is-small">
+                    <i class="fas fa-list-ul"></i>
+                  </span>
+                </button>
+              </p>
+            <% end %>
+          </div>
+          <div class="mx-2" data-controller="date">
+            <button class="button is-outlined has-background-white-ter <%= 'is-hidden' if item.due_at.present? %>" type="button" data-action="click->date#addDueDate" title="Add due date" data-date-target="addDueDateButton" data-input-items-target="addDueDateButton">
+              <span class="icon is-small">
+                <i class="fas fa-calendar-plus"></i>
+              </span>
+              <span>
+                Due
+              </span>
+            </button>
+            <div class="field has-addons <%= 'is-hidden' unless item.due_at.present? %>" data-date-target="dueDateFields"  data-input-items-target="dueDateFields">
+              <p class="control">
+                <a class="button is-static" >
+                  <span class="icon">
+                    <i class="fas fa-calendar"></i>
+                  </span>
+                  <span>Due</span>
+                </a>
+              </p>
+              <p class="control">
+                <%= form.date_field :due_at, class: "input", style: "max-width: 10rem;", min: Date.today, data: { date_target: "dueDateInput" } %>
+              </p>
+              <p class="control">
+                <a class="button" data-date-target="deleteDueDateButton" data-action="click->date#delete">
+                  <span class="icon">
+                    <i class="fas fa-times-circle"></i>
+                  </span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="is-hidden">
+          <span class="select" style="height: 100%;">
+            <select id="item_type" name="item[item_type]" data-input-items-target="select" data-action="change->input-items#select" style="height: 100%;">
+              <option value="bullet" <%= 'selected' if item.bullet? %>>Bullet</option>
+              <option value="task" <%= 'selected' if item.task? %>>Task</option>
+              <option value="note" <%= 'selected' if item.note? %>>Note</option>
+              <% unless item.persisted? || !@group.nil? %>
+                <option value="group">Group</option>
+              <% end %>
+            </select>
+          </span>
+        </div>
+        <div class="control">
+          <button type="submit" class="button is-primary" onclick="this.classList.add('is-loading');" data-input-items-target="submitButton"><%= edit ? "Save" : "Add" %></button>
+        </div>
+      </div>
     </div>
   <% end %>
-  <div class="field has-addons m-0">
-    <p class="control">
-      <span class="select" style="height: 100%;">
-        <select id="item_type" name="item[item_type]" data-input-items-target="select" data-action="change->input-items#select" style="height: 100%;">
-          <option value="info" <%= 'selected' if item.info? %>>Info</option>
-          <option value="task" <%= 'selected' if item.task? %>>Task</option>
-          <option value="note" <%= 'selected' if item.note? %>>Note</option>
-        </select>
-      </span>
-    </p>
-    <p class="control is-expanded">
-      <%= form.text_area :content, class: "#{ item.note? ? 'textarea' : 'input' }", autocomplete: "off", autofocus: true, data: { input_items_target: "input", action: "keyup->input-items#change" } %>
-    </p>
-    <p class="control">
-      <%= form.submit (action_name == "edit" ? "Save" : "+"), class: "button is-primary", style: "height: 100%;" %>
-    </p>
-  </div>
-<% end %>
+  <%= render 'groups/form' unless item.persisted? || !@group.nil?  %>
+</div>

@@ -2,9 +2,10 @@ class Item < ApplicationRecord
   acts_as_taggable_on :tags
   acts_as_taggable_tenant :workspace_id
   belongs_to :project, optional: true, counter_cache: true
+  belongs_to :group, optional: true
   belongs_to :workspace
 
-  enum item_type: %i[info task note]
+  enum item_type: %i[bullet task note]
   before_save :set_tags_and_projects
   validates :content, presence: true
 
@@ -47,7 +48,7 @@ class Item < ApplicationRecord
   class << self
     def markdown
       Redcarpet::Markdown.new(Redcarpet::Render::HTML, lax_spacing: true, space_after_headers: true,
-                                                       underline: true)
+                                                       underline: true, strikethrough: true, highlight: true)
     end
   end
 end

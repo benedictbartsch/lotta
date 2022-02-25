@@ -9,5 +9,10 @@
       <p class="help">This is where we'll send you the magic link to log back in.</p>
     <% end %>
   </div>
-  <div class="control"><%= f.submit 'Get started for free', class: 'button is-primary is-fullwidth', onclick: "_paq.push(['trackEvent', 'User', 'sign-up']);" if tracking %></div>
+  <% if tracking %>
+    <div class="control"><%= f.submit t('users.new.submit'), class: 'button is-primary is-fullwidth', onclick: "_paq.push(['trackEvent', 'User', 'sign-up']);" %></div>
+  <% else %>
+    <div class="control"><%= f.submit t('users.new.submit'), class: 'button is-primary is-fullwidth' %></div>
+  <% end %>
+  
 <% end %>
