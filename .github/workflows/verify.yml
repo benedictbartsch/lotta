@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 10.17.0
+          node-version: '14'
       - name: Find yarn cache location
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -50,7 +50,7 @@ jobs:
 
       - name: Setup test database
         run: |
-          bin/rails db:setup
+          bundle exec db:setup
 
       - name: Run tests
-        run: bin/rails test
+        run: bundle exec test
