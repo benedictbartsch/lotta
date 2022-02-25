@@ -1,0 +1,10 @@
+  <%= turbo_frame_tag(dom_id(project)) do %>
+<div class="notification header">
+    <%= link_to  "", workspace_items_path(@workspace), class:"delete", target: "_top" %>
+    <div class="is-flex is-justify-content-space-between">
+      <p><strong>@<%= project.name %></strong></p>
+      <p><small><%= local_time_ago project.created_at %></small></p>
+      <%#= link_to  t('groups.edit.title'), edit_workspace_group_path(@workspace, group) %>
+    </div>
+</div>
+  <% end %>

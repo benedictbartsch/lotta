@@ -1,0 +1,33 @@
+<div class="mb-3 mx-auto">
+  <%= link_to root_path do %>
+    <%= render 'shared/lotta_brand', text: 'dark' %>
+  <% end %>
+</div>
+<div class="box my-5 mx-auto" style="max-width: 36rem;">
+  <h1 class="title"><%= t('account.your_account') %></h1>
+  <p class="notification"><strong><%= current_user.email %></strong> created on <%= local_time(current_user.created_at) %>.</p>
+  <div class="my-6">
+    <div class="is-flex is-justify-content-space-between">
+      <h2 class="title is-4">Your workspaces</h2>
+      <%= link_to  t('workspaces.new.title'), new_user_workspace_path(current_user), class:"button is-link is-light" %>
+    </div>
+    <ul>
+      <% @workspaces.each do |workspace| %>
+        <li class="my-2">
+          <%= render workspace %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= link_to root_path do %>
+    <button class="button is-fullwidth">
+      <span class="icon">
+        <i class="fas fa-arrow-left"></i>
+      </span>
+      <span>Back to Lotta</span>
+    </button>
+  <% end %>
+</div>
+<div class="mx-auto mt-6" style="max-width: 36rem;">
+  <%= render 'shared/tutorial/lotta_explanation' %>
+</div>

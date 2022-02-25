@@ -14,15 +14,207 @@
  *= require_self
  */
 
+// https://coolors.co/2e3534-86a59c-a76d60-8661c1-a31621
 
- @import "bulma/bulma";
- @import "font-awesome-sprockets";
- @import "font-awesome";
+$primary: #86a59c;
+$link: #8661c1;
+$danger: #a31621;
+$sidebar-background: #2e3534;
+$tertiary-background: #eaeeed;
+$menu-item-color: hsl(0, 0%, 72%);
+$menu-item-hover-color: hsl(0, 0%, 90%);
+$menu-item-hover-background-color: hsl(174, 6%, 31%);
+$menu-item-hover-color: hsl(0, 0%, 96%);
+$menu-item-active-color: hsl(0, 0%, 96%);
+$menu-item-active-background-color: hsl(173, 7%, 48%);
+$navbar-background-color: $sidebar-background;
+$navbar-burger-color: $menu-item-color;
 
- html, body {
-     height: 100%;
- }
+// @import "vanillajs-datepicker/sass/datepicker-bulma";
+@import "bulma/bulma";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "simplemde/dist/simplemde.min";
+@import "bulma/sass/utilities/mixins";
 
- .tag-link {
-     color: $grey;
- }
+// $tertiary-background: #F1E3F3;
+
+.turbo-progress-bar {
+  background-color: $link;
+}
+
+.has-background-sidebar {
+  background-color: $sidebar-background;
+}
+
+.has-background-white-ter {
+  background-color: $tertiary-background !important;
+}
+
+.main-input {
+  background-color: $tertiary-background;
+  box-shadow: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 4px solid #ccc;
+  border-radius: 0px;
+
+  &:focus {
+    border-bottom: 4px solid $sidebar-background;
+    box-shadow: none;
+  }
+}
+
+.navbar-burger:hover {
+  background-color: $menu-item-hover-background-color;
+  color: $menu-item-hover-color;
+}
+
+.notification.header {
+  background-color: #a76d60;
+  color: #fff;
+}
+
+input.sidebar-form {
+  background-color: $sidebar-background;
+  color: $menu-item-active-color;
+}
+
+.sidebar-form.button {
+  background-color: $menu-item-active-background-color;
+}
+
+input.sidebar-form::placeholder {
+  color: $menu-item-color;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: $tertiary-background;
+}
+
+.tag-link {
+  color: $grey;
+}
+
+.content {
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+}
+
+.main-content p {
+  white-space: pre-wrap; /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap; /* Opera <7 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word;
+}
+
+.main-content {
+  max-width: calc(100% - 3rem);
+}
+
+.CodeMirror .CodeMirror-code {
+  color: $grey-darker;
+  font-size: 1rem;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    "Helvetica", "Arial", sans-serif;
+  position: relative;
+}
+
+.CodeMirror-empty {
+  color: rgba(54, 54, 54, 0.3);
+}
+
+.CodeMirror .CodeMirror-code .cm-header-1 {
+  font-size: 150%;
+  font-weight: 600;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-2 {
+  font-size: 130%;
+  // line-height: 160%;
+  font-weight: 600;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-3 {
+  font-size: 110%;
+  // line-height: 125%;
+  font-weight: 600;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-4 {
+  font-size: 100%;
+  // line-height: 110%;
+  font-weight: 600;
+}
+
+.CodeMirror::before {
+  font-family: "Font Awesome 5 Brands";
+  content: "\f60f";
+  color: #ccc;
+  position: absolute;
+  z-index: 1000;
+  right: 1.5rem;
+  // font-family: "Font Awesome 5 Solid"; content: "\f893";
+}
+
+.new-item > .CodeMirror {
+  background: $tertiary-background;
+  box-shadow: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 4px solid #ccc;
+  border-radius: 0px;
+
+  &:focus {
+    border-bottom: 4px solid $sidebar-background;
+    box-shadow: none;
+  }
+}
+
+.new-item > .CodeMirror-focused {
+  border-bottom: 4px solid $sidebar-background;
+  box-shadow: none;
+}
+
+.CodeMirror .CodeMirror-code .cm-comment {
+  background: $tertiary-background;
+  color: $danger;
+  border-radius: 2px;
+}
+
+.element {
+  &.is-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.5;
+    &:after {
+      @include loader;
+      position: absolute;
+      top: calc(50% - 1em);
+      left: calc(50% - 1em);
+      width: 2rem;
+      height: 2rem;
+      border-width: 0.25em;
+    }
+  }
+}
+
+#sidebar {
+  min-height: 100vh;
+}

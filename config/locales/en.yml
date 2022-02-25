@@ -1,5 +1,20 @@
 ---
 en:
+  account:
+    your_account: Your account
+  groups:
+    edit:
+      title: Edit
+      update: Update
+  items:
+    _form:
+      placeholder: Just start typing...
+    index:
+      sorting:
+        created_at_asc: Oldest
+        created_at_desc: Newest
+        due_at_asc: Due date
+        updated_at_desc: Recently updated
   passwordless:
     mailer:
       magic_link: 'Here''s your link: %{link}'
@@ -22,17 +37,30 @@ en:
   sessions:
     not_signed_in: Not signed in
   shared:
+    back: Back
+    cancel: Cancel
+    created_ago: Created %{time_ago}
+    edit: Edit
     error_messages:
       model_error: Model error
     title: Lotta
   sidebar:
+    account: Account
+    agenda: Agenda
     all_items: All items
     completed: Completed
+    feedback: Give feedback
     incomplete: Incomplete
     tasks: Tasks
+    your_workspaces: Your Workspaces
   users:
     new:
       sign_in: Sign in
-      sign_up: Sign up
+      sign_up: Get started for free
+      submit: Sign up
     shared:
       email_placeholder: jane@example.com
+  workspaces:
+    new:
+      create: Create workspace
+      title: New workspace

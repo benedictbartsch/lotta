@@ -1,0 +1,21 @@
+<nav class="navbar is-hidden-tablet id-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to root_path, class: "navbar-item" do %>
+      <div class="is-flex is-flex-direction-row is-align-content-center is-justify-content-flex-start">
+        <figure class="image mx-0">
+          <img style="max-width: 4rem;" src="/lotta_workmark_light.svg">
+        </figure>
+      </div>
+    <% end %>
+    <% if workspace %>
+      <p class="navbar-item has-text-light px-0 pb-1">
+        <%= workspace.name %>
+      </p>
+    <% end %>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" onclick="document.getElementById('sidebar').classList.toggle('is-hidden-mobile');">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>

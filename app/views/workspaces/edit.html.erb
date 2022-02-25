@@ -1,2 +1,5 @@
-<h1>Workspaces#edit</h1>
-<p>Find me in app/views/workspaces/edit.html.erb</p>
+<%= turbo_frame_tag(dom_id(@workspace)) do %>
+<div class="">
+    <%= render 'form', workspace: @workspace %>
+</div>
+<% end %>

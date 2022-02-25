@@ -1,9 +1,15 @@
 <nav class="navbar has-background-white-ter" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <%= link_to root_path, class: 'navbar-item' do %>
-      <figure class="image is-48x48"><%= image_tag 'icon', style: "max-height: 4rem;" %></figure>
-      <span class="mx-3 title">Lotta</span>
+      <figure class="image">
+        <img style="max-width: 8rem; max-height: 3rem;" src="/lotta_workmark_dark.svg">
+      </figure>
     <% end %>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.getElementById('navMenu').classList.toggle('is-active');">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
   <div class="navbar-menu" id="navMenu">
     <div class="navbar-start">
@@ -18,13 +24,15 @@
     </div>
   </div>
 </nav>
-<section class="">
-  <div class="p-4">
-    <div class="columns is-vcentered is-centered ">
-      <div class="column is-two-thirds">
-        <h1 class="title is-1 has-text-centered my-6">Capture your thoughts as they happen</h1>
-        <p class="subtitle has-text-centered">Write an endless stream of notes and tasks and organize them with projects and tags.</p>
-        <div class="my-6" style="max-width: 30rem; margin: auto;">
+<section class="my-6">
+  <div class="container is-max-widescreen">
+    <div class="columns is-vcentered is-centered is-desktop">
+      <div class="column is-half-desktop m-3">
+        <div class="" style="max-width: 40rem; margin: auto;">
+          <h1 class="title is-1 has-text-centered my-6">Capture your thoughts</h1>
+          <p class="subtitle has-text-centered">Write an endless stream of notes and tasks and organize them with projects and tags.</p>
+        </div>
+        <div class="my-6 box" style="max-width: 40rem; margin: auto;">
           <%= render  "users/form", tracking: true %>
           <p class="has-text-centered my-3"><%= link_to  "Already have an account? Log in", users.sign_in_path %></p>
         </div>
@@ -32,5 +40,23 @@
     </div>
   </div>
 </section>
-<footer class="p-3">
-</footer>
+<section class="container is-max-widescreen mt-6">
+  <div class="has-text-centered">
+    <p class="title">
+      <span class="icon-text"><span class="icon"><i class="fab fa-osi"></i></span><span class="ml-2">Open Source</span></span>
+    </p>
+    <p class="subtitle">
+      Lotta is fully open source under the MIT license.<br>You're running the self-hosted version. That's pretty cool! 🚀
+    </p>
+  </div>
+  <div class="columns is-centered is-vcentered p-5 mt-4">
+    <div class="column has-text-centered">
+      <a href="https://github.com/benedictbartsch/lotta" target="_blank" class="button">
+        <span class="icon">
+          <i class="fab fa-github"></i>
+        </span>
+        <span>Check Lotta out on Github</span>
+      </a>
+    </div>
+  </div>
+</section>

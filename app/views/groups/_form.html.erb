@@ -1,0 +1,50 @@
+  <%= form_with(model: [@workspace, @workspace.groups.build], data: {input_items_target: 'gform', turbo_frame: '_top'}, class: 'is-hidden') do |g| %>
+  <div class="field">
+    <p class="control is-expanded mb-2">
+      <%= g.text_field :name, class: "input main-input", autocomplete: "off", autofocus: true, placeholder: t('items._form.placeholder'), data: { input_items_target: "ginput", action: "keyup->input-items#change" } %>
+    </p>
+    <div class="is-flex is-justify-content-space-between">
+      <div class="field has-addons">
+        <p class="control">
+          <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setBullet" title="Bullet" data-input-items-target="bulletbutton">
+            <span>•</span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setTask" title="Task" data-input-items-target="taskbutton">
+            <span class="icon is-small">
+              <i class="far fa-check-square"></i>
+            </span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setNote" title="Note" data-input-items-target="notebutton">
+            <span class="icon is-small">
+              <i class="fas fa-sticky-note"></i>
+            </span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button is-outlined" type="button" data-action="click->input-items#setList" title="List" data-input-items-target="listbutton">
+            <span class="icon is-small">
+              <i class="fas fa-list-ul"></i>
+            </span>
+          </button>
+        </p>
+      </div>
+      <p class="control">
+        <%= g.submit "Create list", class: "button is-primary" %>
+      </p>
+    </div>
+    <p class="control is-hidden">
+      <span class="select" style="height: 100%;">
+        <select id="item_type" data-input-items-target="gselect" data-action="change->input-items#select" style="height: 100%;">
+          <option value="bullet">Bullet</option>
+          <option value="task">Task</option>
+          <option value="note">Note</option>
+          <option value="group" selected>Group</option>
+        </select>
+      </span>
+    </p>
+  </div>
+<% end %>

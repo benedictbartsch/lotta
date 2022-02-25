@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_19_053400) do
+ActiveRecord::Schema.define(version: 2022_02_08_112641) do
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "project_id"
+    t.integer "workspace_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "items", force: :cascade do |t|
     t.text "content"
@@ -20,6 +28,11 @@ ActiveRecord::Schema.define(version: 2021_10_19_053400) do
     t.integer "status", default: 0, null: false
     t.integer "project_id"
     t.integer "workspace_id"
+    t.integer "group_id"
+    t.datetime "status_updated_at"
+    t.datetime "due_at"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.index ["project_id"], name: "index_items_on_project_id"
     t.index ["workspace_id"], name: "index_items_on_workspace_id"
   end

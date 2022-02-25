@@ -1,0 +1,12 @@
+<%= form_with(url: workspace_search_items_path, method: :get) do |f| %>
+  <div class="field has-addons" style="width: 12rem;">
+    <div class="control">
+      <%= f.text_field :search, class: 'input sidebar-form', placeholder: 'Search', value: params[:search] %>
+    </div>
+    <% if params[:search] %>
+      <div class="control">
+        <%= link_to  "X", workspace_items_path(@workspace), class: 'button' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

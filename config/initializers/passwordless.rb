@@ -1,1 +1,1 @@
-Passwordless.default_from_address = 'Lotta.Cloud <no-reply@lotta.cloud>'
+Passwordless.default_from_address = ENV['ACTION_MAILER_DEFAULT_FROM_ADDRESS']

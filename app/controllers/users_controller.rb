@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in(@user)
-      workspace = @user.workspaces.create!
+      workspace = @user.workspaces.create(name: "My Workspace")
       redirect_to workspace_items_path(workspace)
     else
       render :new, status: :unprocessable_entity
@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   end
 
   private
-
   def user_params
     params.require(:user).permit(:email)
   end
