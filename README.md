@@ -56,6 +56,7 @@ You'll need to set the following environment variables:
 - `ACTION_MAILER_SMTP_PORT`
 - `ACTION_MAILER_HOST_URL` (alternatively uses the `APPLICATION_HOST`)
 - `ACTION_MAILER_HOST_PROTOCOL` (otherwise defaults to https)
+- `ACTION_MAILER_DEFAULT_FROM_ADDRESS` (the domain from which emails are sent in the format of 'Sender Name <no-reply@sender.com')
 
 If you'll want to use rails credentials instead, you'll need to clone the repo, run `rails credentials:edit` to set credentials and configure the `config/environments/production.rb` to use credentials instead. See the below example.
 
