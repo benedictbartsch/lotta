@@ -9,7 +9,7 @@
                 <span class="icon">
                   <i class="fas fa-calendar"></i>
                 </span>
-                <span>Due <%= local_relative_time(item.due_at, type: 'weekday-or-date') %></span>
+                <span><%= t('.due_at_html', relative_time: local_relative_time(item.due_at, type: 'weekday-or-date')) %></span>
               </span>
             <% end %>
             <% if item.group.present? && @group.nil? %>
@@ -28,7 +28,7 @@
           <div class="is-flex is-justify-content-space-between">
             <div class="py-2 px-1 has-text-grey has-text-centered" style="min-width: 2rem; vertical-align: middle;">
               <% if item.task? %>
-                <%= form_with(model: [@workspace, item], data: { controller: "items"}) do |f| %>
+                <%= form_with(model: [@workspace, item], data: { controller: "items"}, url: workspace_item_path(@workspace, item, tag: params[:tag], filter: params[:filter], project: params[:project], sorting: params[:sorting], page: params[:page])) do |f| %>
                   <input id="confirm" type="checkbox" <%= 'checked' if item.completed? %>  data-action="click->items#submit">
                   <%= f.hidden_field :status, value: item.completed? ? 0 : 1 %>
                 <% end %>
@@ -41,9 +41,9 @@
               <div class="control item-menu-toggle"><span class="icon"><i class="fas fa-ellipsis-v item-menu-icon"></i></span></div>
               <div class="is-flex is-hidden item-menu" style="position: absolute; right: 3rem; background: white; margin-top: -1.9rem;" disabled>
                 <p class="has-text-grey px-1 is-flex is-align-items-center">
-                  <small>created <%= local_time_ago item.created_at %></small>
+                  <small><%= t('shared.created_at_ago_html', time_ago: local_time_ago(item.created_at)) %></small>
                 </p>
-                <%= link_to edit_workspace_item_path(@workspace, item) do %>
+                <%= link_to edit_workspace_item_path(@workspace, item, tag: params[:tag], filter: params[:filter], project: params[:project], sorting: params[:sorting], page: params[:page]) do %>
                   <div class="button is-small is-link is-outlined m-1 edit-button" onclick="this.classList.add('is-loading');"><span class="icon"><i class="fas fa-pen"></i></span></div>
                 <% end %>
                 <%= button_to  "X", workspace_item_path(@workspace, item), method: :delete, class: "button is-small is-danger is-outlined m-1", onclick: "this.classList.add('is-loading');" %>

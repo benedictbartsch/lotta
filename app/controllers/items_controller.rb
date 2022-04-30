@@ -86,11 +86,17 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
+    page = params[:page]
+    sorting = params[:sorting]
+    filter = params[:filter]
+    tag = params[:tag]
+    project = params[:project]
+
     respond_to do |format|
       if @item.update(item_params)
         @group = @item.group
 
-        format.html { redirect_to workspace_items_path(@workspace), notice: 'Item was successfully updated.' }
+        format.html { redirect_to workspace_items_path(@workspace, page: page, sorting: sorting, filter: filter, tag: tag, project: project), notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -103,7 +109,8 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     respond_to do |format|
-      format.html { redirect_to workspace_items_path(@workspace), notice: 'Item was successfully destroyed.' }
+      format.turbo_stream
+      format.html { redirect_to workspace_items_path(@workspace), notice: 'Item was successfully destroyed.', status: :see_other }
       format.json { head :no_content }
     end
   end

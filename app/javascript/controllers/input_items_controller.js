@@ -226,7 +226,7 @@ export default class extends Controller {
     this.inputTarget.removeEventListener("keypress", this._preventNewline);
     simpleInstance = new simpleMDE({
       element: this.inputTarget,
-      spellChecker: true,
+      spellChecker: false,
       autocorrect: true,
       status: false,
       autofocus: true,

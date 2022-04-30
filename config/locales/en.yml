@@ -11,6 +11,8 @@ en:
       placeholder: Just start typing...
       add: Add
       save: Save
+    item:
+      due_at_html: Due %{relative_time}
     index:
       sorting:
         created_at_asc: Oldest
@@ -42,6 +44,7 @@ en:
     back: Back
     cancel: Cancel
     created_ago: Created %{time_ago}
+    created_at_ago_html: created %{time_ago}
     edit: Edit
     error_messages:
       model_error: Model error
