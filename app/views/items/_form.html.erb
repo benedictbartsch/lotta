@@ -20,19 +20,19 @@
         <div class="item-controls is-flex is-flex-wrap-wrap">
           <div class="field has-addons <%= 'mb-0' if edit %>">
             <p class="control">
-              <button class="button is-outlined" type="button" data-action="click->input-items#setBullet" title="Bullet" data-input-items-target="bulletbutton">
+              <button class="button is-outlined <%= 'has-background-white-ter' unless item.bullet? %>" type="button" data-action="click->input-items#setBullet" title="Bullet" data-input-items-target="bulletbutton">
                 <span>•</span>
               </button>
             </p>
             <p class="control">
-              <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setTask" title="Task" data-input-items-target="taskbutton">
+              <button class="button is-outlined <%= 'has-background-white-ter' unless item.task? %>" type="button" data-action="click->input-items#setTask" title="Task" data-input-items-target="taskbutton">
                 <span class="icon is-small">
                   <i class="far fa-check-square"></i>
                 </span>
               </button>
             </p>
             <p class="control">
-              <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setNote" title="Note" data-input-items-target="notebutton">
+              <button class="button is-outlined <%= 'has-background-white-ter' unless item.note? %>" type="button" data-action="click->input-items#setNote" title="Note" data-input-items-target="notebutton">
                 <span class="icon is-small">
                   <i class="fas fa-sticky-note"></i>
                 </span>
@@ -91,8 +91,15 @@
             </select>
           </span>
         </div>
-        <div class="control">
-          <button type="submit" class="button is-primary" onclick="this.classList.add('is-loading');" data-input-items-target="submitButton"><%= edit ? "Save" : "Add" %></button>
+        <div class="field is-grouped">
+          <% if edit %>
+          <div class="control">
+            <%= link_to  t('shared.cancel'), workspace_item_path(@workspace, item) , class:"button" %>
+          </div>  
+          <% end %>
+          <div class="control">
+            <button type="submit" class="button is-primary" onclick="this.classList.add('is-loading');" data-input-items-target="submitButton"><%= edit ? t('.save') : t('.add') %></button>
+          </div>
         </div>
       </div>
     </div>

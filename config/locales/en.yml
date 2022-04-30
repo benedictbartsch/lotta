@@ -9,6 +9,8 @@ en:
   items:
     _form:
       placeholder: Just start typing...
+      add: Add
+      save: Save
     index:
       sorting:
         created_at_asc: Oldest
