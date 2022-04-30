@@ -1,22 +1,39 @@
 import Rails from "@rails/ujs";
-import { Controller } from "stimulus"
-import simpleMDE from "simplemde"
+import { Controller } from "stimulus";
+import simpleMDE from "simplemde";
 
 var simpleInstance = null;
 var controller = null;
 
 export default class extends Controller {
-  static targets = ["input", "select", "iform", "gform", "gselect", "ginput", "bulletbutton", "notebutton", "listbutton", "taskbutton", "submitButton", "dueDateFields", "addDueDateButton"]
-  static values = { edit: Boolean }
+  static targets = [
+    "input",
+    "select",
+    "iform",
+    "gform",
+    "gselect",
+    "ginput",
+    "bulletbutton",
+    "notebutton",
+    "listbutton",
+    "taskbutton",
+    "submitButton",
+    "dueDateFields",
+    "addDueDateButton",
+  ];
+  static values = { edit: Boolean };
 
   connect() {
     controller = this;
     this._restoreDraft();
     if (this.selectTarget.value != "note") {
       this.inputTarget.addEventListener("keypress", this._preventNewline);
-    } 
+    }
     this._setTextareaHeight();
-    if (this.inputTarget.id == "edit_area" && this.selectTarget.value == "note") {
+    if (
+      this.inputTarget.id == "edit_area" &&
+      this.selectTarget.value == "note"
+    ) {
       this._setNote();
     }
   }
@@ -45,7 +62,7 @@ export default class extends Controller {
         this._setNote();
       } else if (this.selectTarget.value == "group") {
         this._setInput(true);
-      }  else {
+      } else {
         this._setNoneNote();
       }
     } else {
@@ -68,20 +85,19 @@ export default class extends Controller {
 
   setBullet() {
     this.selectTarget.value = "bullet";
-    this._setInput(false);
+    this._setInput(false, false);
     this._setNoneNote();
   }
 
   setTask() {
     this.selectTarget.value = "task";
-    this._setInput(false);
+    this._setInput(false, false);
     this._setNoneNote();
-
   }
 
   setNote() {
-    this.selectTarget.value = "note"
-    this._setInput(false);
+    this.selectTarget.value = "note";
+    this._setInput(false, false);
     this._setNote();
   }
 
@@ -91,13 +107,12 @@ export default class extends Controller {
     }
   }
 
- 
-
-  
-
   _handleEnter(event) {
     if (this._gformAvailable()) {
-      if (this.gformTarget.classList.contains("is-hidden") && !this.iformTarget.classList.contains("is-hidden")) {
+      if (
+        this.gformTarget.classList.contains("is-hidden") &&
+        !this.iformTarget.classList.contains("is-hidden")
+      ) {
         this._iFormEnter(event);
       }
     } else {
@@ -107,9 +122,13 @@ export default class extends Controller {
 
   _iFormEnter(event) {
     if (this.selectTarget.value == "note") {
-      if (event.which === 13 && event.shiftKey && this.inputTarget.value.length > 1) {
-        Rails.fire(this.iformTarget, 'submit');
-      } 
+      if (
+        event.which === 13 &&
+        event.shiftKey &&
+        this.inputTarget.value.length > 1
+      ) {
+        Rails.fire(this.iformTarget, "submit");
+      }
     } else {
       if (event.which === 13 && !event.shiftKey) {
         event.preventDefault();
@@ -117,7 +136,7 @@ export default class extends Controller {
         if (this.inputTarget.value.length > 1) {
           this.submitButtonTarget.classList.add("is-loading");
           // this.submitButtonTarget.disabled = true;
-          Rails.fire(this.iformTarget, 'submit');
+          Rails.fire(this.iformTarget, "submit");
         }
       }
     }
@@ -140,10 +159,12 @@ export default class extends Controller {
           case "b":
             this.selectTarget.value = "bullet";
             this._setInput(false);
-            this.bulletbuttonTarget.classList.remove("has-background-white-ter");
+            this.bulletbuttonTarget.classList.remove(
+              "has-background-white-ter"
+            );
             this.taskbuttonTarget.classList.add("has-background-white-ter");
             this.notebuttonTarget.classList.add("has-background-white-ter");
-            
+
             if (this.hasListbuttonTarget) {
               this.listbuttonTarget.classList.add("has-background-white-ter");
             }
@@ -155,7 +176,7 @@ export default class extends Controller {
             this.bulletbuttonTarget.classList.add("has-background-white-ter");
             this.taskbuttonTarget.classList.remove("has-background-white-ter");
             this.notebuttonTarget.classList.add("has-background-white-ter");
-            
+
             if (this.hasListbuttonTarget) {
               this.listbuttonTarget.classList.add("has-background-white-ter");
             }
@@ -166,7 +187,7 @@ export default class extends Controller {
             this._setInput(false);
 
             break;
-          case "g":
+          case "l":
             if (this.hasGformTarget && this._selectContainsGroup) {
               this._setInput(true);
             }
@@ -197,20 +218,30 @@ export default class extends Controller {
     this.bulletbuttonTarget.classList.add("has-background-white-ter");
     this.taskbuttonTarget.classList.add("has-background-white-ter");
     this.notebuttonTarget.classList.remove("has-background-white-ter");
-    
+
     if (this.hasListbuttonTarget) {
       this.listbuttonTarget.classList.add("has-background-white-ter");
     }
 
     this.inputTarget.removeEventListener("keypress", this._preventNewline);
-    simpleInstance = new simpleMDE({element: this.inputTarget, spellChecker: false, autocorrect: true, status: false, autofocus: true, toolbar: false, autosave: false, forceSync: true, autoDownloadFontAwesome: false });
-    simpleInstance.codemirror.on("change", function(self){
+    simpleInstance = new simpleMDE({
+      element: this.inputTarget,
+      spellChecker: true,
+      autocorrect: true,
+      status: false,
+      autofocus: true,
+      toolbar: false,
+      autosave: false,
+      forceSync: true,
+      autoDownloadFontAwesome: false,
+    });
+    simpleInstance.codemirror.on("change", function (self) {
       controller._setType();
       controller._cacheDraft();
     });
-    simpleInstance.codemirror.on("keydown", function(cm, event){
+    simpleInstance.codemirror.on("keydown", function (cm, event) {
       if (event.which === 13 && event.shiftKey && cm.getValue().length > 1) {
-        Rails.fire(controller.iformTarget, 'submit');
+        Rails.fire(controller.iformTarget, "submit");
       }
     });
     simpleInstance.codemirror.focus();
@@ -249,17 +280,17 @@ export default class extends Controller {
 
   _cacheDraft() {
     if (this.inputTarget.value.length > 2 && !this.editValue) {
-      localStorage.setItem('itemDraftContent', this.inputTarget.value);
-      localStorage.setItem('itemDraftType', this.selectTarget.value);
+      localStorage.setItem("itemDraftContent", this.inputTarget.value);
+      localStorage.setItem("itemDraftType", this.selectTarget.value);
     }
   }
 
   _restoreDraft() {
-    let itemDraftContent = localStorage.getItem('itemDraftContent');
-    let itemDraftType = localStorage.getItem('itemDraftType');
+    let itemDraftContent = localStorage.getItem("itemDraftContent");
+    let itemDraftType = localStorage.getItem("itemDraftType");
 
     if (itemDraftContent == null || itemDraftType == null || this.editValue) {
-      return
+      return;
     }
 
     if (itemDraftContent.length > 0) {
@@ -273,13 +304,13 @@ export default class extends Controller {
 
       if (itemDraftType == "note") {
         this._setNote();
-      } 
+      }
     }
   }
 
   _resetDraft() {
-    localStorage.removeItem('itemDraftContent');
-    localStorage.removeItem('itemDraftType');
+    localStorage.removeItem("itemDraftContent");
+    localStorage.removeItem("itemDraftType");
   }
 
   _gformAvailable() {
@@ -287,12 +318,15 @@ export default class extends Controller {
   }
 
   _selectContainsGroup() {
-    return [...this.selectTarget.options].map(o => o.value).includes("group");
+    return [...this.selectTarget.options].map((o) => o.value).includes("group");
   }
 
   _activeInput() {
     if (this._gformAvailable()) {
-      if (this.gformTarget.classList.contains("is-hidden") && !this.iformTarget.classList.contains("is-hidden")) {
+      if (
+        this.gformTarget.classList.contains("is-hidden") &&
+        !this.iformTarget.classList.contains("is-hidden")
+      ) {
         return this.inputTarget;
       } else {
         return this.ginputTarget;
@@ -305,20 +339,26 @@ export default class extends Controller {
   _removeSimpleMDE() {
     if (simpleInstance) {
       simpleInstance.toTextArea();
-      this.inputTarget.style.removeProperty('height');
+      this.inputTarget.style.removeProperty("height");
     }
   }
 
-  _setInput(group) {
+  _setInput(group, removeFirstTwo = true) {
     if (group) {
       this.iformTarget.classList.add("is-hidden");
       this.gformTarget.classList.remove("is-hidden");
       this._removeSimpleMDE();
-      this._removeFirstTwo(this.inputTarget);
-      this.ginputTarget.focus();
 
+      if (removeFirstTwo) {
+        this._removeFirstTwo(this.inputTarget);
+      }
+
+      this.ginputTarget.focus();
     } else {
-      this._removeFirstTwo(this._activeInput());
+      if (removeFirstTwo) {
+        this._removeFirstTwo(this._activeInput());
+      }
+
       if (this._gformAvailable()) {
         this.iformTarget.classList.remove("is-hidden");
         this.gformTarget.classList.add("is-hidden");
@@ -326,5 +366,4 @@ export default class extends Controller {
       this.inputTarget.focus();
     }
   }
-
 }
