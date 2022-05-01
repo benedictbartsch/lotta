@@ -19,7 +19,7 @@
       <%= hidden_field_tag :project, params[:project] if params[:project] %>
       <%= hidden_field_tag :tag, params[:tag] if params[:tag] %>
       <p class="control mb-2 <%= 'new-item' unless edit %>">
-        <%= form.text_area :content, class: "#{ item.note? ? 'textarea' : 'input' } #{ 'main-input' unless edit }" ,  autocomplete: "off", id: (item.persisted? || !@group.nil?) ? "edit_area" : "input_area", placeholder: t('items._form.placeholder'), autofocus: true, data: { input_items_target: "input", action: "keyup->input-items#change" } %>
+        <%= form.text_area :content, class: "#{ item.note? ? 'textarea' : 'input' } #{ 'main-input' unless edit }" ,  autocomplete: "off", id: (item.persisted? || !@group.nil?) ? "edit_area" : "input_area", placeholder: t('items.form.placeholder'), autofocus: true, data: { input_items_target: "input", action: "keyup->input-items#change" } %>
       </p>
       <div class="is-flex is-justify-content-space-between">
         <div class="item-controls is-flex is-flex-wrap-wrap">

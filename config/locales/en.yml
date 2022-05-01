@@ -7,18 +7,18 @@ en:
       title: Edit
       update: Update
   items:
-    _form:
-      placeholder: Just start typing...
+    form:
       add: Add
+      placeholder: Just start typing...
       save: Save
-    item:
-      due_at_html: Due %{relative_time}
     index:
       sorting:
         created_at_asc: Oldest
         created_at_desc: Newest
         due_at_asc: Due date
         updated_at_desc: Recently updated
+    item:
+      due_at_html: Due %{relative_time}
   passwordless:
     mailer:
       magic_link: 'Here''s your link: %{link}'
