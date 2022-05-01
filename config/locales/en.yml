@@ -7,14 +7,18 @@ en:
       title: Edit
       update: Update
   items:
-    _form:
+    form:
+      add: Add
       placeholder: Just start typing...
+      save: Save
     index:
       sorting:
         created_at_asc: Oldest
         created_at_desc: Newest
         due_at_asc: Due date
         updated_at_desc: Recently updated
+    item:
+      due_at_html: Due %{relative_time}
   passwordless:
     mailer:
       magic_link: 'Here''s your link: %{link}'
@@ -40,6 +44,7 @@ en:
     back: Back
     cancel: Cancel
     created_ago: Created %{time_ago}
+    created_at_ago_html: created %{time_ago}
     edit: Edit
     error_messages:
       model_error: Model error

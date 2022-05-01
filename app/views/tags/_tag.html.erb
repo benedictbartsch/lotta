@@ -1,0 +1,8 @@
+  <%= turbo_frame_tag(dom_id(tag)) do %>
+  <div class="notification header">
+    <div class="is-flex is-justify-content-space-between">
+      <p><strong>#<%= tag.name %></strong></p>
+      <p><small><%= local_time_ago tag.created_at %></small></p>
+    </div>
+  </div>
+<% end %>

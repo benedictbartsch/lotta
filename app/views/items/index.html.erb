@@ -2,12 +2,12 @@
   <p id="notice" class="notification is-link"><%= notice %></p>
 <% end %>
 <% @group_id = @group ? @group.id : nil %>
-<div class="py-4"><%= turbo_frame_tag("new_item", src: new_workspace_item_path(@workspace, group_id: @group_id)) do %>
-    <%= render 'items/form', item: @workspace.items.build %>
-  <% end %>
+<div class="py-4">
+  <%= render 'items/form', item: @workspace.items.build %>
 </div>
 <%= render @group if @group %>
 <%= render @project if @project %>
+<%= render partial: 'tags/tag', locals: { tag: @tag } if @tag %>
 <% unless @items.empty? %>
   <div class="is-flex is-justify-content-flex-end mt-2" data-controller="toggle">
     <div class="dropdown is-right" data-toggle-name="sorting-dropdown">
