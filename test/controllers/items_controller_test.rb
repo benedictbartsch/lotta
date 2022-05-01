@@ -24,7 +24,7 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
       post workspace_items_url(@workspace), params: { item: { content: @item.content } }
     end
 
-    assert_redirected_to workspace_item_url(@workspace, Item.last)
+    assert_redirected_to workspace_items_url(@workspace)
   end
 
   test "should show item" do

@@ -13,26 +13,31 @@
     <% end %>
     <div class="field">
       <%= form.hidden_field :group_id, value: @group.id if @group %>
+      <%= hidden_field_tag :page, params[:page] if params[:page] %>
+      <%= hidden_field_tag :filter, params[:filter] if params[:filter] %>
+      <%= hidden_field_tag :sorting, params[:sorting] if params[:sorting] %>
+      <%= hidden_field_tag :project, params[:project] if params[:project] %>
+      <%= hidden_field_tag :tag, params[:tag] if params[:tag] %>
       <p class="control mb-2 <%= 'new-item' unless edit %>">
-        <%= form.text_area :content, class: "#{ item.note? ? 'textarea' : 'input' } #{ 'main-input' unless edit }" ,  autocomplete: "off", id: (item.persisted? || !@group.nil?) ? "edit_area" : "input_area", placeholder: t('items._form.placeholder'), autofocus: true, data: { input_items_target: "input", action: "keyup->input-items#change" } %>
+        <%= form.text_area :content, class: "#{ item.note? ? 'textarea' : 'input' } #{ 'main-input' unless edit }" ,  autocomplete: "off", id: (item.persisted? || !@group.nil?) ? "edit_area" : "input_area", placeholder: t('items.form.placeholder'), autofocus: true, data: { input_items_target: "input", action: "keyup->input-items#change" } %>
       </p>
       <div class="is-flex is-justify-content-space-between">
         <div class="item-controls is-flex is-flex-wrap-wrap">
           <div class="field has-addons <%= 'mb-0' if edit %>">
             <p class="control">
-              <button class="button is-outlined" type="button" data-action="click->input-items#setBullet" title="Bullet" data-input-items-target="bulletbutton">
+              <button class="button is-outlined <%= 'has-background-white-ter' unless item.bullet? %>" type="button" data-action="click->input-items#setBullet" title="Bullet" data-input-items-target="bulletbutton">
                 <span>•</span>
               </button>
             </p>
             <p class="control">
-              <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setTask" title="Task" data-input-items-target="taskbutton">
+              <button class="button is-outlined <%= 'has-background-white-ter' unless item.task? %>" type="button" data-action="click->input-items#setTask" title="Task" data-input-items-target="taskbutton">
                 <span class="icon is-small">
                   <i class="far fa-check-square"></i>
                 </span>
               </button>
             </p>
             <p class="control">
-              <button class="button is-outlined has-background-white-ter" type="button" data-action="click->input-items#setNote" title="Note" data-input-items-target="notebutton">
+              <button class="button is-outlined <%= 'has-background-white-ter' unless item.note? %>" type="button" data-action="click->input-items#setNote" title="Note" data-input-items-target="notebutton">
                 <span class="icon is-small">
                   <i class="fas fa-sticky-note"></i>
                 </span>
@@ -91,8 +96,15 @@
             </select>
           </span>
         </div>
-        <div class="control">
-          <button type="submit" class="button is-primary" onclick="this.classList.add('is-loading');" data-input-items-target="submitButton"><%= edit ? "Save" : "Add" %></button>
+        <div class="field is-grouped">
+          <% if edit %>
+            <div class="control">
+              <%= link_to  t('shared.cancel'), workspace_items_path(@workspace, tag: params[:tag], filter: params[:filter], project: params[:project], sorting: params[:sorting], page: params[:page]) , class:"button" %>
+            </div>
+          <% end %>
+          <div class="control">
+            <button type="submit" class="button is-primary" onclick="this.classList.add('is-loading');" data-input-items-target="submitButton"><%= edit ? t('.save') : t('.add') %></button>
+          </div>
         </div>
       </div>
     </div>

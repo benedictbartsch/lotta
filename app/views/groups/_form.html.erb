@@ -1,7 +1,7 @@
   <%= form_with(model: [@workspace, @workspace.groups.build], data: {input_items_target: 'gform', turbo_frame: '_top'}, class: 'is-hidden') do |g| %>
   <div class="field">
     <p class="control is-expanded mb-2">
-      <%= g.text_field :name, class: "input main-input", autocomplete: "off", autofocus: true, placeholder: t('items._form.placeholder'), data: { input_items_target: "ginput", action: "keyup->input-items#change" } %>
+      <%= g.text_field :name, class: "input main-input", autocomplete: "off", autofocus: true, placeholder: t('items.form.placeholder'), data: { input_items_target: "ginput", action: "keyup->input-items#change" } %>
     </p>
     <div class="is-flex is-justify-content-space-between">
       <div class="field has-addons">

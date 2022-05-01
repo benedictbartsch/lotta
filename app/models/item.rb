@@ -17,7 +17,7 @@ class Item < ApplicationRecord
     hashtags = content.split(' ').select { |w| w.first == '#' && w.length > 1 && w[1, 1] != '#' }
     return if hashtags.empty?
 
-    hashtags.map { |t| t.gsub(/[^[:word:]\s]/, '') }
+    hashtags.map { |t| t.gsub(/[^[:word:]\s]/, '').downcase }
   end
 
   def extract_project_name
@@ -39,6 +39,10 @@ class Item < ApplicationRecord
 
   def has_tags?
     tag_list.any?
+  end
+
+  def has_project? 
+    project.present?
   end
 
   def markdown_content
