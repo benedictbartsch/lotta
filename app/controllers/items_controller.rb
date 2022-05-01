@@ -7,6 +7,8 @@ class ItemsController < ApplicationController
   # GET /items or /items.json
   def index
     @project = @workspace.projects.find_by(name: params[:project]) if params[:project].present?
+    @tag = ActsAsTaggableOn::Tag.for_tenant(@workspace.id).find_by(name: params[:tag]) if params[:tag].present?
+
 
     @items = if params[:tag]
                @workspace.items.tagged_with([params[:tag]])
