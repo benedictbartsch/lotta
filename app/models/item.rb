@@ -41,6 +41,10 @@ class Item < ApplicationRecord
     tag_list.any?
   end
 
+  def has_project? 
+    project.present?
+  end
+
   def markdown_content
     self.class.markdown.render(content)
   end
