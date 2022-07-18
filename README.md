@@ -4,9 +4,11 @@
 
 Lotta is a personal productivity tool, that allows you to write an infinite stream of notes and tasks, organized with inline projects and tags.
 
-Host it yourself (see below), or choose the hosted version at Lotta.Cloud.
+Host it yourself (see below), ~~or choose the hosted version at Lotta.Cloud.~~
 
-Give it a try - it's free to get started.  [Lotta.Cloud](https://lotta.cloud)
+~~Give it a try - it's free to get started.  [Lotta.Cloud](https://lotta.cloud)~~
+
+*Lotta.cloud has since been sunset. But self-hosting - or deploying your own publicly hosted version - obviously still works :).*
 
 [![Screenshot](https://static.startpunkt.io/lotta/lotta_screenshot.png)](https://blazer.dokkuapp.com)
 
